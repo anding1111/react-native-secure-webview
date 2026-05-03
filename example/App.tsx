@@ -19,16 +19,18 @@ export default function App() {
     );
 }
 
+const WHITE = '#fff';
+
 const styles = StyleSheet.create({
     container: {
+        backgroundColor: WHITE,
         flex: 1,
-        backgroundColor: '#fff',
     },
     title: {
         fontSize: 18,
         fontWeight: 'bold',
-        textAlign: 'center',
         marginVertical: 20,
+        textAlign: 'center',
     },
     webview: {
         flex: 1,
