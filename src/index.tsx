@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, forwardRef } from 'react';
 import { NativeModules, NativeEventEmitter } from 'react-native';
 import { WebView, WebViewProps } from 'react-native-webview';
 
@@ -15,31 +15,32 @@ export interface SecureWebViewProps extends WebViewProps {
     onReceivedSslError?: (event: SslErrorEvent) => void;
 }
 
-export const SecureWebView: React.FC<SecureWebViewProps> = ({
-    autoProceedDomains = [],
-    onReceivedSslError,
-    ...props
-}) => {
-    useEffect(() => {
-        const subscription = sslEmitter.addListener('onReceivedSslError', (event: SslErrorEvent) => {
-            const shouldAutoProceed = autoProceedDomains.some(domain =>
-                event.url.includes(domain)
-            );
+/**
+ * SecureWebView con soporte para Refs mediante forwardRef.
+ */
+export const SecureWebView = forwardRef<WebView, SecureWebViewProps>(
+    ({ autoProceedDomains = [], onReceivedSslError, ...props }, ref) => {
+        useEffect(() => {
+            const subscription = sslEmitter.addListener('onReceivedSslError', (event: SslErrorEvent) => {
+                const shouldAutoProceed = autoProceedDomains.some((domain) => event.url.includes(domain));
 
-            if (shouldAutoProceed) {
-                RNWebViewSSL.proceedSslError(true);
-            } else if (onReceivedSslError) {
-                onReceivedSslError(event);
-            } else {
-                RNWebViewSSL.proceedSslError(false);
-            }
-        });
+                if (shouldAutoProceed) {
+                    RNWebViewSSL.proceedSslError(true);
+                } else if (onReceivedSslError) {
+                    onReceivedSslError(event);
+                } else {
+                    RNWebViewSSL.proceedSslError(false);
+                }
+            });
 
-        return () => subscription.remove();
-    }, [autoProceedDomains, onReceivedSslError]);
+            return () => subscription.remove();
+        }, [autoProceedDomains, onReceivedSslError]);
 
-    return <WebView { ...props } />;
-};
+        return <WebView {...props} ref={ref} />;
+    },
+);
+
+SecureWebView.displayName = 'SecureWebView';
 
 export const proceedSslError = (proceed: boolean): Promise<boolean> => {
     return RNWebViewSSL.proceedSslError(proceed);
