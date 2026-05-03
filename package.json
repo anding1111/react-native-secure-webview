@@ -1,12 +1,11 @@
 {
-    "name": "react-native-secure-webview",
+    "name": "@anding1111/react-native-secure-webview",
     "version": "1.0.0",
     "description": "Secure WebView with proper SSL error handling for React Native. Cross-platform (Android + iOS). Follows Google Play policies. Inspired by App Inventor CustomWebView.",
     "main": "src/index.tsx",
     "types": "src/index.d.ts",
     "scripts": {
-        "build": "tsc",
-        "prepare": "npm run build"
+        "build": "tsc"
     },
     "keywords": [
         "react-native",
