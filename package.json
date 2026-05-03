@@ -1,0 +1,35 @@
+{
+    "name": "react-native-secure-webview",
+    "version": "1.0.0",
+    "description": "Secure WebView with proper SSL error handling for React Native. Cross-platform (Android + iOS). Follows Google Play policies. Developed for IMEI Colombia.",
+    "main": "src/index.tsx",
+    "types": "src/index.d.ts",
+    "author": "Andrés Inguilán - SAEDI",
+    "license": "MIT",
+    "peerDependencies": {
+        "react": "*",
+        "react-native": ">=0.70.0",
+        "react-native-webview": ">=13.0.0"
+    },
+    "devDependencies": {
+        "react": "18.2.0",
+        "react-native": "0.79.2",
+        "typescript": "^5.4.0",
+        "@types/react": "^18.2.0",
+        "@types/react-native": "^0.73.0"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/anding1111/react-native-secure-webview"
+    },
+    "keywords": [
+        "react-native",
+        "webview",
+        "ssl",
+        "https",
+        "security",
+        "google-play",
+        "app-inventor",
+        "imei"
+    ]
+}
